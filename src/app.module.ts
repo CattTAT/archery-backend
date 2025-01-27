@@ -6,6 +6,7 @@ import { EquipmentModule } from './equipment/equipment.module';
 import { ArrowsModule } from './arrows/arrows.module';
 import { ScoresheetsModule } from './scoresheets/scoresheets.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ScoresetModule } from './scoreset/scoreset.module';
 @Module({
     imports: [
         TypeOrmModule.forRoot({
@@ -22,6 +23,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         EquipmentModule,
         ArrowsModule,
         ScoresheetsModule,
+        ScoresetModule,
     ],
     controllers: [AppController],
     providers: [AppService],
