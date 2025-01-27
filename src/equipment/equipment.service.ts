@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Equipment } from './equipment.entity';
+import { Equipment } from './entities/equipment.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateEquipmentDto } from './dto/create-equipment.dto';
+import { UpdateEquipmentDto } from './dto/update-equipment.dto';
 
 @Injectable()
 export class EquipmentService {
@@ -10,19 +12,24 @@ export class EquipmentService {
         private equipmentRepository: Repository<Equipment>,
     ) {}
 
-    findAll(): Promise<Equipment[]> {
+    create(createEquipmentDto: CreateEquipmentDto) {
+        const equipment = this.equipmentRepository.create(createEquipmentDto);
+        return this.equipmentRepository.save(equipment);
+    }
+
+    findAll() {
         return this.equipmentRepository.find();
     }
-    findOne(id: number): Promise<Equipment> {
-        return this.equipmentRepository.findOne({ where: { id: id } });
+
+    findOne(id: number) {
+        return this.equipmentRepository.findOneBy({ id });
     }
-    async remove(id: number): Promise<void> {
-        await this.equipmentRepository.delete(id);
+
+    update(id: number, updateEquipmentDto: UpdateEquipmentDto) {
+        return this.equipmentRepository.update(id, updateEquipmentDto);
     }
-    async create(equipment: Equipment): Promise<Equipment> {
-        return this.equipmentRepository.save(equipment);
-    }
-    async update(equipment: Equipment): Promise<Equipment> {
-        return this.equipmentRepository.save(equipment);
+
+    remove(id: number) {
+        return this.equipmentRepository.delete(id);
     }
 }

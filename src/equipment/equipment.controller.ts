@@ -5,36 +5,36 @@ import {
     Delete,
     Param,
     Body,
-    Put,
+    Patch,
 } from '@nestjs/common';
 import { EquipmentService } from './equipment.service';
-import { Equipment } from './equipment.entity';
+import { CreateEquipmentDto } from './dto/create-equipment.dto';
+import { UpdateEquipmentDto } from './dto/update-equipment.dto';
 
 @Controller('equipment')
 export class EquipmentController {
     constructor(private readonly equipmentService: EquipmentService) {}
     @Get()
-    getAll(): Promise<Equipment[]> {
+    findAll() {
         return this.equipmentService.findAll();
     }
     @Get(':id')
-    get(@Param('id') id: number): Promise<Equipment> {
-        return this.equipmentService.findOne(id);
+    get(@Param('id') id: string) {
+        return this.equipmentService.findOne(+id);
     }
     @Post()
-    create(@Body() equipment: Equipment): Promise<Equipment> {
-        return this.equipmentService.create(equipment);
+    create(@Body() createEquipmentDto: CreateEquipmentDto) {
+        return this.equipmentService.create(createEquipmentDto);
     }
-    @Put(':id')
+    @Patch(':id')
     update(
-        @Param('id') id: number,
-        @Body() equipment: Equipment,
-    ): Promise<Equipment> {
-        equipment.id = Number(id);
-        return this.equipmentService.update(equipment);
+        @Param('id') id: string,
+        @Body() updateEquipmentDto: UpdateEquipmentDto,
+    ) {
+        return this.equipmentService.update(+id, updateEquipmentDto);
     }
     @Delete(':id')
-    delete(@Param('id') id: number): Promise<void> {
-        return this.equipmentService.remove(id);
+    remove(@Param('id') id: string) {
+        return this.equipmentService.remove(+id);
     }
 }
