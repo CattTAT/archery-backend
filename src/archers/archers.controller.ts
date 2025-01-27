@@ -5,33 +5,38 @@ import {
     Delete,
     Param,
     Body,
-    Put,
+    Patch,
 } from '@nestjs/common';
 import { ArchersService } from './archers.service';
-import { Archer } from './archer.entity';
+import { CreateArcherDto } from './dto/create-archer.dto';
+import { UpdateArcherDto } from './dto/update-archer.dto';
 
 @Controller('archers')
 export class ArchersController {
     constructor(private readonly archersService: ArchersService) {}
+
+    @Post()
+    create(@Body() createArcherDto: CreateArcherDto) {
+        return this.archersService.create(createArcherDto);
+    }
+
     @Get()
-    getAll(): Promise<Archer[]> {
+    findAll() {
         return this.archersService.findAll();
     }
+
     @Get(':id')
-    get(@Param('id') id: number): Promise<Archer> {
-        return this.archersService.findOne(id);
+    findOne(@Param('id') id: string) {
+        return this.archersService.findOne(+id);
     }
-    @Post()
-    create(@Body() archer: Archer): Promise<Archer> {
-        return this.archersService.create(archer);
+
+    @Patch(':id')
+    update(@Param('id') id: string, @Body() updateArcherDto: UpdateArcherDto) {
+        return this.archersService.update(+id, updateArcherDto);
     }
-    @Put(':id')
-    update(@Param('id') id: number, @Body() archer: Archer): Promise<Archer> {
-        archer.id = Number(id);
-        return this.archersService.update(archer);
-    }
+
     @Delete(':id')
-    delete(@Param('id') id: number): Promise<void> {
-        return this.archersService.remove(id);
+    remove(@Param('id') id: string) {
+        return this.archersService.remove(+id);
     }
 }

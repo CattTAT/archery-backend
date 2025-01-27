@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ArchersService } from './archers.service';
 import { ArchersController } from './archers.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Archer } from './archer.entity';
+import { Archer } from './entities/archer.entity';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Archer])],

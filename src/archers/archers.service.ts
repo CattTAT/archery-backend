@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
-import { Archer } from './archer.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Archer } from './entities/archer.entity';
+import { CreateArcherDto } from './dto/create-archer.dto';
+import { UpdateArcherDto } from './dto/update-archer.dto';
 
 @Injectable()
 export class ArchersService {
@@ -10,19 +12,24 @@ export class ArchersService {
         private archersRepository: Repository<Archer>,
     ) {}
 
-    findAll(): Promise<Archer[]> {
+    create(createArcherDto: CreateArcherDto) {
+        const archer = this.archersRepository.create(createArcherDto);
+        return this.archersRepository.save(archer);
+    }
+
+    findAll() {
         return this.archersRepository.find();
     }
-    findOne(id: number): Promise<Archer> {
-        return this.archersRepository.findOne({ where: { id: id } });
+
+    findOne(id: number) {
+        return this.archersRepository.findOneBy({ id });
     }
-    async remove(id: number): Promise<void> {
-        await this.archersRepository.delete(id);
+
+    update(id: number, updateArcherDto: UpdateArcherDto) {
+        return this.archersRepository.update(id, updateArcherDto);
     }
-    async create(archer: Archer): Promise<Archer> {
-        return this.archersRepository.save(archer);
-    }
-    async update(archer: Archer): Promise<Archer> {
-        return this.archersRepository.save(archer);
+
+    remove(id: number) {
+        return this.archersRepository.delete(id);
     }
 }
