@@ -21,6 +21,18 @@ export class EquipmentService {
         return this.equipmentRepository.find();
     }
 
+    async findEquipmentByArcherID(archerId: number, type: Array<string>) {
+        const allEquipment = await this.equipmentRepository.find({
+            where: { archer_id: archerId },
+        });
+        if (type === undefined) {
+            return allEquipment;
+        }
+        return allEquipment.filter((equipment) =>
+            type.includes(equipment.type),
+        );
+    }
+
     findOne(id: number) {
         return this.equipmentRepository.findOneBy({ id });
     }

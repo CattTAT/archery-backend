@@ -8,11 +8,17 @@ export class Equipment {
     @Column({ nullable: false })
     archer_id: number;
 
+    @Column({ nullable: false })
+    name: string;
+
     @Column({ type: 'enum', enum: ['bow', 'arrows', 'sight'] })
     type: equipmentType;
 
-    @Column({ type: 'simple-json', nullable: true })
-    measurements: { [key: string]: string };
+    @Column({ nullable: true })
+    measurements: string;
+
+    @Column({ nullable: true })
+    last_modified: Date;
 }
 
 export type equipmentType = 'bow' | 'arrows' | 'sight';

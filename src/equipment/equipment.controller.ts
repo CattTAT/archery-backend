@@ -6,6 +6,7 @@ import {
     Param,
     Body,
     Patch,
+    Query,
 } from '@nestjs/common';
 import { EquipmentService } from './equipment.service';
 import { CreateEquipmentDto } from './dto/create-equipment.dto';
@@ -14,14 +15,20 @@ import { UpdateEquipmentDto } from './dto/update-equipment.dto';
 @Controller('equipment')
 export class EquipmentController {
     constructor(private readonly equipmentService: EquipmentService) {}
-    @Get()
-    findAll() {
-        return this.equipmentService.findAll();
-    }
+
     @Get(':id')
     get(@Param('id') id: string) {
         return this.equipmentService.findOne(+id);
     }
+
+    @Get()
+    getArchersEquipment(
+        @Query('archerId') archerId: string,
+        @Query('type') type: Array<string>,
+    ) {
+        return this.equipmentService.findEquipmentByArcherID(+archerId, type);
+    }
+
     @Post()
     create(@Body() createEquipmentDto: CreateEquipmentDto) {
         return this.equipmentService.create(createEquipmentDto);
