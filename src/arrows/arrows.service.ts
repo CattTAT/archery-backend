@@ -20,6 +20,12 @@ export class ArrowsService {
         return this.arrowsRepository.find();
     }
 
+    getAllArrowsByScoresetId(scoresetId: number) {
+        return this.arrowsRepository.find({
+            where: { scoreset_id: scoresetId },
+        });
+    }
+
     findOne(id: number) {
         return this.arrowsRepository.findOne({ where: { id: id } });
     }

@@ -4,6 +4,7 @@ import { UpdateScoresetDto } from './dto/update-scoreset.dto';
 import { Scoreset } from './entities/scoreset.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { log } from 'console';
 
 @Injectable()
 export class ScoresetService {
@@ -18,6 +19,15 @@ export class ScoresetService {
 
     findAll() {
         return this.scoresetRepository.find();
+    }
+
+    getAllScoresetsByIdAndRound(scoresheetId: number, roundSeq: number) {
+        log(
+            `ScoresetService.getAllScoresetsByIdAndRound(${scoresheetId}, ${roundSeq})`,
+        );
+        return this.scoresetRepository.find({
+            where: { scoresheet_id: scoresheetId, round_seq: roundSeq },
+        });
     }
 
     findOne(id: number) {
