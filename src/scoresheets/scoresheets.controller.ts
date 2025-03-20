@@ -2,33 +2,50 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ScoresheetsService } from './scoresheets.service';
 import { CreateScoresheetDto } from './dto/create-scoresheet.dto';
 import { UpdateScoresheetDto } from './dto/update-scoresheet.dto';
+import { Query } from '@nestjs/common';
 
 @Controller('scoresheets')
 export class ScoresheetsController {
-  constructor(private readonly scoresheetsService: ScoresheetsService) {}
+    constructor(private readonly scoresheetsService: ScoresheetsService) {}
 
-  @Post()
-  create(@Body() createScoresheetDto: CreateScoresheetDto) {
-    return this.scoresheetsService.create(createScoresheetDto);
-  }
+    @Post()
+    create(@Body() createScoresheetDto: CreateScoresheetDto) {
+        return this.scoresheetsService.create(createScoresheetDto);
+    }
 
-  @Get()
-  findAll() {
-    return this.scoresheetsService.findAll();
-  }
+    @Get('distances')
+    getScoresheetsDistances(@Query('archerId') archerId: string) {
+        return this.scoresheetsService.getScoresheetsDistances(+archerId);
+    }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.scoresheetsService.findOne(+id);
-  }
+    @Get()
+    findScoresheets(
+        @Query('archerId') archerId: string,
+        @Query('distance') distance: string[],
+        @Query('status') status: string[],
+    ) {
+        return this.scoresheetsService.getScoresheetsByArcherId(
+            +archerId,
+            distance,
+            status,
+        );
+    }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateScoresheetDto: UpdateScoresheetDto) {
-    return this.scoresheetsService.update(+id, updateScoresheetDto);
-  }
+    @Get(':id')
+    findOne(@Param('id') id: string) {
+        return this.scoresheetsService.findOne(+id);
+    }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.scoresheetsService.remove(+id);
-  }
+    @Patch(':id')
+    update(
+        @Param('id') id: string,
+        @Body() updateScoresheetDto: UpdateScoresheetDto,
+    ) {
+        return this.scoresheetsService.update(+id, updateScoresheetDto);
+    }
+
+    @Delete(':id')
+    remove(@Param('id') id: string) {
+        return this.scoresheetsService.remove(+id);
+    }
 }

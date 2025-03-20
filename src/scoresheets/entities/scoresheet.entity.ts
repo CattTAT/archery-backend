@@ -9,6 +9,9 @@ export class Scoresheet {
     archer_id: number;
 
     @Column()
+    name: string;
+
+    @Column()
     distance: number;
 
     @Column()
@@ -22,4 +25,13 @@ export class Scoresheet {
 
     @Column()
     arrow_per_set: number;
+
+    @Column()
+    status: number;
+
+    @Column({ nullable: true })
+    created_at: Date;
+
+    @Column({ nullable: true })
+    last_modified: Date;
 }
