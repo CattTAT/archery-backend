@@ -8,6 +8,12 @@ export class Archer {
     @Column()
     name: string;
 
+    @Column({ type: 'enum', enum: ['female', 'male'] })
+    gender: gender;
+
+    @Column({ type: 'enum', enum: ['recurve', 'compound'] })
+    bow: bow;
+
     @Column({ type: 'enum', enum: ['left', 'right'] })
     eye: eyeSight;
 
@@ -19,5 +25,9 @@ export class Archer {
 }
 
 export type eyeSight = 'left' | 'right';
+
+export type gender = 'female' | 'male';
+
+export type bow = 'recurve' | 'compound';
 
 export type recurveLevel = 'novice' | 'elementary' | 'intermediate' | 'advance';
