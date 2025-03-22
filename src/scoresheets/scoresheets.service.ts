@@ -52,6 +52,15 @@ export class ScoresheetsService {
         );
     }
 
+    getRecentIncompleteScoresheet(archerId: number) {
+        return this.scoresheetsRepository
+            .createQueryBuilder('scoresheet')
+            .where('scoresheet.archer_id = :archerId', { archerId })
+            .andWhere('scoresheet.status = :status', { status: 'incomplete' })
+            .orderBy('scoresheet.last_modified', 'DESC')
+            .getOne();
+    }
+
     update(id: number, updateScoresheetDto: UpdateScoresheetDto) {
         return `This action updates a #${id} scoresheet`;
     }

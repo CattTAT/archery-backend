@@ -36,6 +36,11 @@ export class ScoresheetsController {
         return this.scoresheetsService.findOne(+id);
     }
 
+    @Get('recent/:archerId')
+    findRecentIncompleteScoresheet(@Param('archerId') archerId: string) {
+        return this.scoresheetsService.getRecentIncompleteScoresheet(+archerId);
+    }
+
     @Patch(':id')
     update(
         @Param('id') id: string,
