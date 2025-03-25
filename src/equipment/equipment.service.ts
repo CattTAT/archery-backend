@@ -14,6 +14,7 @@ export class EquipmentService {
 
     create(createEquipmentDto: CreateEquipmentDto) {
         const equipment = this.equipmentRepository.create(createEquipmentDto);
+        equipment.last_modified = new Date();
         return this.equipmentRepository.save(equipment);
     }
 
