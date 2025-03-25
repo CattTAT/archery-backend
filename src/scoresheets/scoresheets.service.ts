@@ -4,17 +4,23 @@ import { CreateScoresheetDto } from './dto/create-scoresheet.dto';
 import { UpdateScoresheetDto } from './dto/update-scoresheet.dto';
 import { Scoresheet } from './entities/scoresheet.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { log } from 'console';
+import { ScoresetService } from 'src/scoreset/scoreset.service';
 
 @Injectable()
 export class ScoresheetsService {
     constructor(
         @InjectRepository(Scoresheet)
         private scoresheetsRepository: Repository<Scoresheet>,
+        private scoresetService: ScoresetService,
     ) {}
 
     create(createScoresheetDto: CreateScoresheetDto) {
-        return 'This action adds a new scoresheet';
+        const scoresheet =
+            this.scoresheetsRepository.create(createScoresheetDto);
+        scoresheet.status = 0; // incomplete
+        scoresheet.created_at = new Date();
+        scoresheet.last_modified = new Date();
+        return this.scoresheetsRepository.save(scoresheet);
     }
 
     findAll() {
