@@ -38,8 +38,17 @@ export class EquipmentService {
         return this.equipmentRepository.findOneBy({ id });
     }
 
-    update(id: number, updateEquipmentDto: UpdateEquipmentDto) {
-        return this.equipmentRepository.update(id, updateEquipmentDto);
+    async update(id: number, updateEquipmentDto: UpdateEquipmentDto) {
+        const equipment = await this.equipmentRepository.findOne({
+            where: { id: id },
+        });
+
+        const updatedEquipment = this.equipmentRepository.merge(
+            equipment,
+            updateEquipmentDto,
+        );
+        updatedEquipment.last_modified = new Date();
+        return this.equipmentRepository.save(updatedEquipment);
     }
 
     remove(id: number) {

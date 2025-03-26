@@ -65,8 +65,20 @@ export class ScoresheetsService {
             .getOne();
     }
 
-    update(id: number, updateScoresheetDto: UpdateScoresheetDto) {
-        return `This action updates a #${id} scoresheet`;
+    async update(id: number, updateScoresheetDto: UpdateScoresheetDto) {
+        const scoresheet = await this.scoresheetsRepository.findOne({
+            where: { id: id },
+        });
+        const updatedScoresheet = this.scoresheetsRepository.merge(
+            scoresheet,
+            updateScoresheetDto,
+        );
+
+        // Update the last_modified field
+        updatedScoresheet.last_modified = new Date();
+
+        // Save the updated entity
+        return this.scoresheetsRepository.save(updatedScoresheet);
     }
 
     remove(id: number) {
