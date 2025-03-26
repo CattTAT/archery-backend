@@ -6,6 +6,9 @@ export class Scoreset {
     id: number;
 
     @Column({ nullable: false })
+    archer_id: number;
+
+    @Column({ nullable: false })
     scoresheet_id: number;
 
     @Column({ nullable: false })

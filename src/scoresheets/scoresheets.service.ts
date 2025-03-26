@@ -4,14 +4,12 @@ import { CreateScoresheetDto } from './dto/create-scoresheet.dto';
 import { UpdateScoresheetDto } from './dto/update-scoresheet.dto';
 import { Scoresheet } from './entities/scoresheet.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ScoresetService } from 'src/scoreset/scoreset.service';
 
 @Injectable()
 export class ScoresheetsService {
     constructor(
         @InjectRepository(Scoresheet)
         private scoresheetsRepository: Repository<Scoresheet>,
-        private scoresetService: ScoresetService,
     ) {}
 
     create(createScoresheetDto: CreateScoresheetDto) {

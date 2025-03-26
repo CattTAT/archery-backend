@@ -13,7 +13,7 @@ export class ArrowsService {
     ) {}
 
     create(createArrowDto: CreateArrowDto) {
-        return 'This action adds a new arrow';
+        return this.arrowsRepository.save(createArrowDto);
     }
 
     findAll() {
@@ -31,7 +31,7 @@ export class ArrowsService {
     }
 
     update(id: number, updateArrowDto: UpdateArrowDto) {
-        return `This action updates a #${id} arrow`;
+        return this.arrowsRepository.update(id, updateArrowDto);
     }
 
     remove(id: number) {

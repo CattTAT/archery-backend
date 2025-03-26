@@ -13,10 +13,24 @@ export class Arrow {
 
     @Column({
         type: 'enum',
-        enum: ['M', 'X', '10', '9', '8', '7', '6', '5', '4', '3', '2', '1'],
+        enum: [
+            'M',
+            'X',
+            '10',
+            '9',
+            '8',
+            '7',
+            '6',
+            '5',
+            '4',
+            '3',
+            '2',
+            '1',
+            null,
+        ],
         nullable: true,
     })
-    score: number;
+    score: score;
 
     @Column({ type: 'float', nullable: true })
     x_axis: number;
@@ -40,4 +54,5 @@ export type score =
     | '4'
     | '3'
     | '2'
-    | '1';
+    | '1'
+    | null;
