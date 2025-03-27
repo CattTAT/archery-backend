@@ -35,6 +35,6 @@ export class ArrowsService {
     }
 
     remove(id: number) {
-        return `This action removes a #${id} arrow`;
+        return this.arrowsRepository.delete(id);
     }
 }

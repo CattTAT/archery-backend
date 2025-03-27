@@ -57,6 +57,7 @@ export class ScoresheetsService {
     }
 
     getRecentIncompleteScoresheet(archerId: number) {
+        if (!archerId || archerId === undefined) return null;
         return this.scoresheetsRepository
             .createQueryBuilder('scoresheet')
             .where('scoresheet.archer_id = :archerId', { archerId })
@@ -82,6 +83,6 @@ export class ScoresheetsService {
     }
 
     remove(id: number) {
-        return `This action removes a #${id} scoresheet`;
+        return this.scoresheetsRepository.delete(id)  ;
     }
 }

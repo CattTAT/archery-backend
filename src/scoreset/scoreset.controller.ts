@@ -22,7 +22,7 @@ export class ScoresetController {
     }
 
     @Get()
-    findAllScoresets(
+    findAllScoresetsEachRound(
         @Query('scoresheetId') scoresheetId: string,
         @Query('roundSeq') roundSeq: string,
     ) {
@@ -30,6 +30,11 @@ export class ScoresetController {
             +scoresheetId,
             +roundSeq,
         );
+    }
+
+    @Get('all')
+    findAllScoresets(@Query('scoresheetId') scoresheetId: string) {
+        return this.scoresetService.getAllScoresetsById(+scoresheetId);
     }
 
     @Get(':id')

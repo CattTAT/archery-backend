@@ -22,11 +22,14 @@ export class ScoresetService {
     }
 
     getAllScoresetsByIdAndRound(scoresheetId: number, roundSeq: number) {
-        log(
-            `ScoresetService.getAllScoresetsByIdAndRound(${scoresheetId}, ${roundSeq})`,
-        );
         return this.scoresetRepository.find({
             where: { scoresheet_id: scoresheetId, round_seq: roundSeq },
+        });
+    }
+
+    getAllScoresetsById(scoresheetId: number) {
+        return this.scoresetRepository.find({
+            where: { scoresheet_id: scoresheetId },
         });
     }
 
