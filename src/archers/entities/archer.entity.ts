@@ -22,6 +22,9 @@ export class Archer {
         enum: ['novice', 'elementary', 'intermediate', 'advance'],
     })
     level: recurveLevel;
+
+    @Column({ nullable: true })
+    device_id: string;
 }
 
 export type eyeSight = 'left' | 'right';
