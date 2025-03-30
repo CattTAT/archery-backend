@@ -12,7 +12,7 @@ import { ScoresetModule } from './scoreset/scoreset.module';
         TypeOrmModule.forRoot({
             type: 'mysql',
             host: 'localhost',
-            port: 3006,
+            port: 3306,
             username: 'root',
             password: 'archery2425FYP!',
             database: 'archery',
