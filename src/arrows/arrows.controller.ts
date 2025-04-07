@@ -22,7 +22,10 @@ export class ArrowsController {
     }
 
     @Get()
-    findAllScoresheetsArrows(@Query('scoresetId') scoresetId: string) {
+    findAllScoresheetsArrows(@Query('scoresetId') scoresetId: string, @Query('archerId') archerId: string) {
+        if (archerId) {
+            return this.arrowsService.getAllArrowsByArcherId(+archerId);
+        }
         return this.arrowsService.getAllArrowsByScoresetId(+scoresetId);
     }
 

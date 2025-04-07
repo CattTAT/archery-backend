@@ -25,7 +25,13 @@ export class ArrowsService {
             where: { scoreset_id: scoresetId },
         });
     }
-
+    
+    getAllArrowsByArcherId(archerId: number) {
+        return this.arrowsRepository.find({
+            where: { archer_id: archerId },
+        });
+    }
+    
     findOne(id: number) {
         return this.arrowsRepository.findOne({ where: { id: id } });
     }
